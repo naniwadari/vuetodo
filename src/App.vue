@@ -12,10 +12,18 @@ import { createInitialLists } from "./initialData";
 
 @Component({
   components: {
-    List
-  }
+    List,
+  },
 })
 export default class App extends Vue {
   lists: IList[] = createInitialLists();
 }
 </script>
+<style lang="scss">
+#app {
+  display: flex;
+  > .list {
+    margin: 1px;
+  }
+}
+</style>

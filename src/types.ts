@@ -6,7 +6,7 @@ export interface IList {
   cards: iCard[];
 }
 
-export interface iCard {
+export interface ICard {
   readonly id: number;
   text: string;
 }
