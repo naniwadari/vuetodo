@@ -1,6 +1,7 @@
 <template>
   <div class="list">
     <div
+      class="list-name"
       :contenteditable="contenteditable"
       @dblclick="onDoubleClick"
       @keypress.enter="onKeyPressEnter"
