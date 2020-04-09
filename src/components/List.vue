@@ -9,7 +9,13 @@
       {{ list.name }}
     </div>
     <!-- JSの式を二重中括弧で囲うとテキスト展開される(マスタタッシュ構文)-->
-    <Card v-for="card in list.cards" :key="card.id" :card="card" />
+    <Card
+      v-for="card in list.cards"
+      :key="card.id"
+      class="card"
+      :card="card"
+      :cardText.sync="card.text"
+    />
     <input type="text" @change="addCard" />
   </div>
 </template>
@@ -19,7 +25,7 @@ export interface IAddCardEvent {
   listId: number;
   text: string;
 }
-import { Component, Vue, Prop, Emit } from "vue-property-decorator";
+import { Component, Vue, Prop, Emit, PropSync } from "vue-property-decorator";
 import Card from "../components/Card.vue";
 import { IList } from "../types";
 
@@ -30,8 +36,10 @@ import { IList } from "../types";
 })
 export default class List extends Vue {
   @Prop({ type: Object, required: true })
-  list!: IList;
+  readonly list!: IList;
 
+  @PropSync("listName", { type: String, required: true })
+  syncedListName!: IList["name"];
   //content editable
   contenteditable = false;
 
@@ -61,7 +69,8 @@ export default class List extends Vue {
     //要素からフォーカスを外す
     event.currentTarget.blur();
   }
-  onBlur(evnet: FocusEvent & { currentTarget: HTMLDivElement }): void {
+  onBlur(event: FocusEvent & { currentTarget: HTMLDivElement }): void {
+    this.syncedListName = event.currentTarget.innerText;
     //要素のテキストを編集不可にする
     this.contenteditable = false;
   }
