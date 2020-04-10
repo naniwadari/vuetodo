@@ -3,7 +3,7 @@ export interface IList {
   // 数値なのでnumber型
   readonly id: number;
   name: string;
-  cards: iCard[];
+  cards: ICard[];
 }
 
 export interface ICard {
